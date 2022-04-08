@@ -60,25 +60,9 @@ const updateOrganizadorService = async (id, data) => {
                      org_codigo: id
                 },
 });
-/* 
-const codigo = parseInt(id)
 
-const {org_nombre, org_cargo, org_descripcion, org_foto} = data;
-
-console.log(org_nombre, org_cargo, org_descripcion, org_foto);
-
-let organizadoresResult = await sequelize.query(
-    "UPDATE organizadores SET org_nombre = $1, org_cargo = $2, org_descripcion = $3, org_foto = $4 WHERE org_codigo = $5", [org_nombre, org_cargo, org_descripcion, org_foto, codigo]
-) */
 console.log('Organizadorr model coutn',organizadorModelCount.datavalues);
-   //if(organizadorModelCount > 0){
-       //const organizadorModelResult = await OrganizadorModel.findByPk(id);
-
-       return organizadorModelCount.dataValues;
-       
-   //}else{
-      // return null;
-   //}
+       return organizadorModelCount.dataValues;    
 }
 
 const remove = async (org_codigo) => {

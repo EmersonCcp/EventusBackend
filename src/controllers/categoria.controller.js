@@ -33,11 +33,16 @@ const   create = async (req,res) => {
 }
 
 const   update = async (req,res) => {
-    const categoria = await categoriaServices.update(req.body);
-    res.status(202).send({
-        success: true,
-        categoria
-    });
+    const categoria = await categoriaServices.updateCategoriaService(req.params.id, req.body);
+    console.log(req.params.id, req.body);
+   
+            res.status(202).send({
+             success: true,
+             categoria
+         });
+        
+     
+    
 }
 
 const   remove = async (req,res) => {

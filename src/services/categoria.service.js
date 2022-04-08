@@ -51,20 +51,17 @@ const list = async (query, pageStart = 0, pageLimit = 10) => {
     }
  }
 
- const update = async (data) => {
-    const categoriaModelCount = await CategoriaModel.update(data, {
-                 where: {
-                      ca_codigo: data.ca_codigo
-                 },
- });
-    if(categoriaModelCount > 0){
-        const categoriaModelResult = await CategoriaModel.findByPk(data.ca_codigo);
-        return categoriaModelResult.dataValues;
-        
-    }else{
-        return null;
-    }
- }
+ const updateCategoriaService = async (id, data) => {
+    //console.log('dataupdateee',id, data, 'dataupdateeefinnn');
+   const categoriaModelCount = await CategoriaModel.update(data, {
+                where: {
+                     ca_codigo: id
+                },
+});
+
+console.log('Organizadorr model coutn',categoriaModelCount.datavalues);
+       return categoriaModelCount.dataValues;    
+}
 
  const remove = async (ca_codigo) => {
     //eliminar el data en la BD
@@ -82,5 +79,5 @@ const list = async (query, pageStart = 0, pageLimit = 10) => {
  }
 
  module.exports = {
-    list, listFilter, getById, create, update, remove
+    list, listFilter, getById, create, updateCategoriaService, remove
  }
