@@ -32,18 +32,14 @@ const  listFilter = async (req,res) => {
         });
     }
 
-    const   update = async (req,res) => {
-        const organizador = await organizadorServices.updateOrganizadorService(req.params.id, req.body);
-       // console.log(req.params.id, req.body);
-       
-                res.status(202).send({
-                 success: true,
-                 organizador
-             });
-            
-         
-        
-    }
+    const actualizarOrganizadorController = async (req, res) => {
+        const actualizar = await organizadorServices.actualizarOrganizadorService(req.body);
+      
+        res.status(202).send({
+          success: true,
+          actualizar,
+        });
+      };
 
     const   remove = async (req,res) => {
         const booleanValue = await organizadorServices.remove(req.params.id);
@@ -53,9 +49,8 @@ const  listFilter = async (req,res) => {
     }
 
     module.exports = {
-        list,
+        list,create,
         listFilter,
         getById,
-        create,
-        update,remove
+        actualizarOrganizadorController,remove
     }

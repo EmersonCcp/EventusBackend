@@ -1,57 +1,54 @@
 const categoriaServices = require('../services/categoria.service');
 
-const  list = async (req,res) => {
+const  listarCategoriasController = async (req,res) => {
     
-    const categorias = await categoriaServices.list(req.query.q);
+    const categorias = await categoriaServices.listarCategoriaService(req.query.q);
     res.send({
         categorias
     });
 }
 
-const  listFilter = async (req,res) => {
+const  listFilterCategoriaController = async (req,res) => {
     
-    const categoria = await categoriaServices.listFilter(req.query.q);
+    const categoria = await categoriaServices.listFilterCategoriaService(req.query.q);
     res.send({
         success:true,
          categoria});
 }
 
-const  getById = async (req,res) => {
-    const categoria = await categoriaServices.getById(req.params.id);
-    let jsonResultado = req.query;
+const  getByIdCategoriaController = async (req,res) => {
+    const categoria = await categoriaServices.getByIdCategoriaService(req.params.id);
+    const jsonResultado = req.query;
     jsonResultado['success'] = true;
     jsonResultado['categoria'] = categoria;
     res.status(201).send(jsonResultado);
 }
 
-const   create = async (req,res) => {
-    const categoria = await categoriaServices.create(req.body);
+const   crearCategoriaController = async (req,res) => {
+    const categoria = await categoriaServices.crearCategoriaService(req.body);
     res.status(202).send({
         success: true,
         categoria
     });
 }
 
-const   update = async (req,res) => {
-    const categoria = await categoriaServices.updateCategoriaService(req.params.id, req.body);
-    console.log(req.params.id, req.body);
-   
-            res.status(202).send({
-             success: true,
-             categoria
-         });
-        
-     
-    
-}
+const actualizarCategoriaController = async (req, res) => {
+    const actualizar = await categoriaServices.actualizarCategoriaService(req.body);
+  
+    res.status(202).send({
+      success: true,
+      actualizar,
+    });
+  };
 
-const   remove = async (req,res) => {
-    const booleanValue = await categoriaServices.remove(req.params.id);
+const   eliminarCategoriaController = async (req,res) => {
+    const booleanValue = await categoriaServices.eliminarCategoriaService(req.params.id);
     res.status(202).send({
         success: booleanValue
     });
 }
 
 module.exports = {
-    list,listFilter,getById, create, update, remove
+    listarCategoriasController, listFilterCategoriaController, getByIdCategoriaController,
+    crearCategoriaController, actualizarCategoriaController, eliminarCategoriaController
 }

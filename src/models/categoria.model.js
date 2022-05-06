@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const {sequelize} = require('../services/bd.service');
+const {EventoModel} = require('./evento.model.js');
 
 const CategoriaModel = sequelize.define('Categoria', {
   // Model attributes are defined here
@@ -19,6 +20,8 @@ const CategoriaModel = sequelize.define('Categoria', {
   tableName: 'categorias',
   timestamps: false
 });
+
+
 
 module.exports = {
   CategoriaModel

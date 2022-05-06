@@ -25,6 +25,11 @@ const OrganizadorModel = sequelize.define('Organizador', {
     // allowNull defaults to true
   },
   org_foto: {
+    type: DataTypes.TEXT,
+    allowNull: true
+    // allowNull defaults to true
+  },
+  org_whatsapp: {
     type: DataTypes.STRING,
     allowNull: true
     // allowNull defaults to true

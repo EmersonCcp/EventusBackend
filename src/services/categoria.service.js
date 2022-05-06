@@ -1,10 +1,14 @@
-const {Sequelize, sequelize} = require('./bd.service');
+const {sequelize} = require('./bd.service');
 const  {CategoriaModel}  = require('../models/categoria.model');
 const { QueryTypes } = require('sequelize');
 
-const list = async (query, pageStart = 0, pageLimit = 10) => {
+const listarCategoriaService = async (query, pageStart = 0, pageLimit = 10) => {
    
-    const categoriasModelResults = await CategoriaModel.findAll();
+    const categoriasModelResults = await CategoriaModel.findAll({
+        order: [
+            ['ca_codigo', 'ASC']
+        ]
+       });
     
     const categoriasArray = new Array();
     for (let i = 0; i < categoriasModelResults.length; i++) {
@@ -14,7 +18,7 @@ const list = async (query, pageStart = 0, pageLimit = 10) => {
     return categoriasArray;
  }
 
- const listFilter = async (query, pageStart = 0, pageLimit = 10) => {
+ const listFilterCategoriaService = async (query, pageStart = 0, pageLimit = 10) => {
    
      let categoriasResult = await sequelize.query(
       `SELECT * FROM categorias WHERE (UPPER(ca_nombre) LIKE :q)
@@ -30,7 +34,7 @@ const list = async (query, pageStart = 0, pageLimit = 10) => {
      return categoriasResult;
   }
 
-  const getById = async (ca_codigo) => {
+  const getByIdCategoriaService = async (ca_codigo) => {
     //Buscar en la BD por codigo
     const categoriaModelResult = await CategoriaModel.findByPk(ca_codigo);
     if(categoriaModelResult){
@@ -41,7 +45,7 @@ const list = async (query, pageStart = 0, pageLimit = 10) => {
     
  }
 
- const create = async (data) => {
+ const crearCategoriaService = async (data) => {
     //Guardar el data en la BD
     const categoriaModelResult = await CategoriaModel.create(data);
     if(categoriaModelResult){
@@ -51,19 +55,25 @@ const list = async (query, pageStart = 0, pageLimit = 10) => {
     }
  }
 
- const updateCategoriaService = async (id, data) => {
-    //console.log('dataupdateee',id, data, 'dataupdateeefinnn');
-   const categoriaModelCount = await CategoriaModel.update(data, {
-                where: {
-                     ca_codigo: id
-                },
-});
 
-console.log('Organizadorr model coutn',categoriaModelCount.datavalues);
-       return categoriaModelCount.dataValues;    
-}
 
- const remove = async (ca_codigo) => {
+const actualizarCategoriaService = async (data) => {
+    const categoriaModelCount = await CategoriaModel.update(data, {
+      where: {
+        ca_codigo: data.ca_codigo,
+      },
+    });
+  
+    if (categoriaModelCount > 0) {
+      const categoriaModelResult = await CategoriaModel.findByPk(data.ca_codigo);
+      return categoriaModelResult.dataValues;
+    } else {
+      return null;
+    }
+  };
+
+
+ const eliminarCategoriaService = async (ca_codigo) => {
     //eliminar el data en la BD
     const categoriaModelCount = await CategoriaModel.destroy({
               where: {
@@ -79,5 +89,6 @@ console.log('Organizadorr model coutn',categoriaModelCount.datavalues);
  }
 
  module.exports = {
-    list, listFilter, getById, create, updateCategoriaService, remove
+    listarCategoriaService, listFilterCategoriaService, getByIdCategoriaService,
+    crearCategoriaService, actualizarCategoriaService, eliminarCategoriaService
  }

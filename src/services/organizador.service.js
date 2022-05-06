@@ -4,7 +4,11 @@ const { QueryTypes } = require('sequelize');
 
 const list = async (query, pageStart = 0, pageLimit = 10) => {
    
-   const organizadoresModelResults = await OrganizadorModel.findAll();
+   const organizadoresModelResults = await OrganizadorModel.findAll({
+    order: [
+        ['org_codigo', 'ASC']
+    ]
+   });
    
    const organizadoresArray = new Array();
    for (let i = 0; i < organizadoresModelResults.length; i++) {
@@ -53,17 +57,21 @@ const create = async (data) => {
    }
 }
 
-const updateOrganizadorService = async (id, data) => {
-    //console.log('dataupdateee',id, data, 'dataupdateeefinnn');
-   const organizadorModelCount = await OrganizadorModel.update(data, {
-                where: {
-                     org_codigo: id
-                },
-});
+const actualizarOrganizadorService = async (data) => {
+    const organizadorModelCount = await OrganizadorModel.update(data, {
+      where: {
+        org_codigo: data.org_codigo,
+      },
+    });
+  
+    if (organizadorModelCount > 0) {
+      const organizadorModelResult = await OrganizadorModel.findByPk(data.org_codigo);
+      return organizadorModelResult.dataValues;
+    } else {
+      return null;
+    }
+  };
 
-console.log('Organizadorr model coutn',organizadorModelCount.datavalues);
-       return organizadorModelCount.dataValues;    
-}
 
 const remove = async (org_codigo) => {
    //eliminar el data en la BD
@@ -81,5 +89,5 @@ const remove = async (org_codigo) => {
 }
 
 module.exports = {
-   list,listFilter, getById, create, updateOrganizadorService, remove
+   list,listFilter, getById, create, actualizarOrganizadorService, remove
 }

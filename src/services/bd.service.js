@@ -8,6 +8,7 @@ const sequelize = new Sequelize('eventus', 'postgres', '9014', {
   const testConnection = async () =>{
      try {
     await sequelize.authenticate();
+    await sequelize.sync({force: false});
     console.log('Se conectó correctamente');
   } catch (error) {
     console.error('No conectó', error);

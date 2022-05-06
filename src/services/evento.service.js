@@ -4,7 +4,11 @@ const { QueryTypes } = require('sequelize');
 
 const list = async (query, pageStart = 0, pageLimit = 10) => {
    
-   const eventoModelResults = await EventoModel.findAll();
+   const eventoModelResults = await EventoModel.findAll({
+    order: [
+        ['eve_codigo', 'ASC']
+    ]
+   });
    
    const eventosArray = new Array();
    for (let i = 0; i < eventoModelResults.length; i++) {

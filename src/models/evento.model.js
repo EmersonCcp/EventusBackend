@@ -1,6 +1,7 @@
 const { DataTypes } = require('sequelize');
 const {sequelize} = require('../services/bd.service');
 
+
 const EventoModel = sequelize.define('Evento', {
   // Model attributes are defined here
   eve_codigo: {
@@ -20,7 +21,7 @@ const EventoModel = sequelize.define('Evento', {
     // allowNull defaults to true
   },
   eve_fecha: {
-    type: DataTypes.DATE,
+    type: DataTypes.STRING,
     allowNull: true
     // allowNull defaults to true
   },
@@ -35,7 +36,7 @@ const EventoModel = sequelize.define('Evento', {
     // allowNull defaults to true
   },
   eve_estado: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull:true
     // allowNull defaults to true
   },
@@ -44,13 +45,13 @@ const EventoModel = sequelize.define('Evento', {
     allowNull: true
     // allowNull defaults to true
   },
-  fk_categoria: {
-    type: DataTypes.INTEGER,
+  eve_img: {
+    type: DataTypes.STRING,
     allowNull: true
     // allowNull defaults to true
   },
-  eve_img: {
-    type: DataTypes.STRING,
+  fk_categoria: {
+    type: DataTypes.INTEGER,
     allowNull: true
     // allowNull defaults to true
   }
@@ -59,6 +60,8 @@ const EventoModel = sequelize.define('Evento', {
   tableName: 'eventos',
   timestamps: false
 });
+
+
 
 module.exports = {
   EventoModel
