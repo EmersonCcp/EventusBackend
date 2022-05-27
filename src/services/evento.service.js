@@ -22,8 +22,7 @@ const listFilter = async (query, pageStart = 0, pageLimit = 10) => {
    
   // const videoModelResults = await VideoModel.findAll();
    let eventosResult = await sequelize.query(
-    `SELECT * FROM eventos WHERE (UPPER(eve_nombre) LIKE :q
-                                        OR UPPER(eve_descripcion) LIKE :q)
+    `SELECT * FROM eventos WHERE (UPPER(eve_nombre) LIKE :q)
                                         ORDER BY eve_codigo`,
     {
         replacements: {

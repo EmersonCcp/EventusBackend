@@ -12,7 +12,7 @@ const  list = async (req,res) => {
 
 const  listFilter = async (req,res) => {
     
-    const eventos = await eventoServices.list(req.query.q);
+    const eventos = await eventoServices.listFilter(req.query.q);
     res.send({
         success: true,
         eventos

@@ -50,8 +50,8 @@ const EventoModel = sequelize.define('Evento', {
     allowNull: true
     // allowNull defaults to true
   },
-  fk_categoria: {
-    type: DataTypes.INTEGER,
+  eve_categoria: {
+    type: DataTypes.STRING,
     allowNull: true
     // allowNull defaults to true
   }

@@ -39,6 +39,11 @@ const UsuarioModel = sequelize.define('Usuario', {
     type: DataTypes.STRING,
     allowNull: true
     // allowNull defaults to true
+  },
+  token: {
+    type: DataTypes.STRING,
+    allowNull: true
+    // allowNull defaults to true
   }
 }, {
   // Other model options go here

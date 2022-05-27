@@ -27,9 +27,7 @@ const   crearUsuarioController = async (req,res) => {
 }
 
 const   actualizarUsuarioController = async (req,res) => {
-    const usuario = await usuariosServices.actualizarUsuarioService(req.params.id, req.body);
-    console.log(req.params.id, req.body);
-   
+    const usuario = await usuariosServices.actualizarUsuarioService(req.body);
             res.status(202).send({
              success: true,
              usuario
@@ -43,10 +41,35 @@ const   eliminarUsuarioController = async (req,res) => {
     });
 }
 
+const   loginUsuarioController = async (req,res) => {
+    try {
+        const usuario = await usuariosServices.loginUsuarioService(req.body);
+         res.status(200).send({
+        success: true,
+        token: usuario.token
+    });   
+    } catch (error) {
+        res.status(200).send({
+            success: false,
+            error: error.message
+        });   
+    }
+}
+
+const   logoutUsuarioController = async (req,res) => {
+    const usuario = await usuariosServices.logoutUsuarioService(req.usuarioId);
+    res.status(202).send({
+        success: true,
+        usuario
+    });
+}
+
 module.exports = {
     listarUsuariosController,
     getByIdUsuarioController,
      crearUsuarioController,
       actualizarUsuarioController,
-       eliminarUsuarioController
+       eliminarUsuarioController,
+       loginUsuarioController,
+       logoutUsuarioController
 }
